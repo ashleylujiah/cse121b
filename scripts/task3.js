@@ -4,42 +4,34 @@
 
 // Step 1: Using function declaration, define a function named add that takes two arguments, number1 and number2
 function add(number1, number2) {
-    let sum = number1 + number2;
-    return sum;
+    return number1 + number2;
 }
 
 // Step 2: In the function, return the sum of the parameters number1 and number2
 
 // Step 3: Step 3: Using function declaration, define another function named addNumbers that gets the values of two HTML form controls with IDs of addend1 and addend2. Pass them to the add function
-function addNumbers(addend1, addend2) {
-    let addend1 = document.querySelector("#addend1").value;
-    let addend2 = document.querySelector("#addend2").value;
-    add(addend1, addend2);
-    return sum;
-}
-
 // Step 4: Assign the return value to an HTML form element with an ID of sum
-formElement.innerHTML("#sum") = addNumbers(addend1, addend2);
+function addNumbers() {
+    let addend1 = Number(document.querySelector("#addend1").value);
+    let addend2 = Number(document.querySelector("#addend2").value);
+    document.querySelector("#sum").value = add(addend1, addend2);
+}
 
 // Step 5: Add a "click" event listener to the HTML button with an ID of addNumbers that calls the addNumbers function
-buttonElement.addEventListener("click", addNumbers(addend1, addend2));
+document.querySelector("#addNumbers").addEventListener("click", addNumbers);
 
 // Step 6: Using function expressions, repeat Steps 1-5 with new functions named subtract and subtractNumbers and HTML form controls with IDs of minuend, subtrahend, difference and subtractNumbers
-function subtract(number1, number2) {
-    let difference = number1 - number2;
-    return difference;
+const subtract = function(number1, number2) {
+    return number1 - number2;
 }
 
-function subtractNumbers(minuend, subtrahend) {
-    let minuend = document.querySelector("#minuend").value;
-    let subtrahend = document.querySelector("#subtrahend").value;
-    subtract(minuend, subtrahend);
-    return difference;
+function subtractNumbers() {
+    let minuend = Number(document.querySelector("#minuend").value);
+    let subtrahend = Number(document.querySelector("#subtrahend").value);
+    document.querySelector("#difference").value = subtract(minuend, subtrahend);
 }
 
-formElement.innerHTML("#difference") = subtractNumbers(minuend, subtrahend);
-
-buttonElement.addEventListener("click", subtractNumbers(minuend, subtrahend));
+document.querySelector("#difference").addEventListener("click", subtractNumbers);
 
 
 // Step 7: Using arrow functions, repeat Steps 1-5 with new functions named multiply and mulitplyNumbers and HTML form controls with IDs of factor1, factor2, product and multiplyNumbers
