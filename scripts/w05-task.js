@@ -10,17 +10,17 @@ let templeList = [];
 
 const displayTemples = (temples) => {
     console.log("TEMPLE OUTPUT PARAM", templeList);
-    templeList.forEach(temple => {
-        const templeArticle = document.createElement("article");
-        templesElement.append(templeArticle);
+    temples.forEach((temple) => {
+        const templeArticle = document.createElement("article");       
         const templeNameH3 = document.createElement("h3");
         console.log("temple", temple);
-        templeNameH3.innerText = temple.templeName;
-        templesElement.append(templeNameH3);
+        templeNameH3.innerText = temple.templeName;        
         const templeImage = document.createElement("img");
         templeImage.setAttribute("src", temple.imageUrl);
-        templeImage.setAttribute("alt", temple.location);    
-        templesElement.append(templeImage);       
+        templeImage.setAttribute("alt", temple.location); 
+        templeArticle.appendChild(templeNameH3);   
+        templeArticle.appendChild(templeImage);
+        templesElement.appendChild(templeArticle);       
     })
 }
 
@@ -87,31 +87,31 @@ const reset = () => {
 
 /* FROM VIDEO */
 function reset() {
-    document.querySelector("#temples").textContent = ""
-} 
+    document.querySelector("#temples").innerHTML = ""
+};
 
 /* sortBy Function */
-function sortBy(temples) {
+function sortBy(templeList) {
     reset();
     const filter = document.querySelector("#sortBy").value;
     switch(filter) {
         case "utah":
-            displayTemples(temples.filter(temple => {
+            displayTemples(templeList.filter((temple) => {
                 return temple.location.includes("Utah");
             }));
             break;
         case "notutah":
-            displayTemples(temples.filter(temple => {
+            displayTemples(templeList.filter((temple) => {
                 return !temple.location.includes("Utah");
             }));
             break;
         case "older":
-            displayTemples(temples.filter(temple => {
-                return temple.dedicated < newDate(1950, 0, 1);
+            displayTemples(templeList.filter((temple) => {
+                return temple.dedicated < new Date(1950, 0, 1);
             }));
             break;
         case "all":
-            displayTemples(temples);
+            displayTemples(templeList);
             break;
 
     };
@@ -142,4 +142,4 @@ function compare(temple1, temple2) {
 getTemples();
 
 /* Event Listener */
-document.querySelector("#sortBy").addEventListener("change", () => { sortBy(templeList) });
+document.querySelector("#sortBy").addEventListener("change", sortBy());
