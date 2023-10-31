@@ -9,6 +9,7 @@ let templeList = [];
 /* async displayTemples Function */
 
 const displayTemples = (temples) => {
+    reset();
     console.log("TEMPLE OUTPUT PARAM", templeList);
     temples.forEach((temple) => {
         const templeArticle = document.createElement("article");       
@@ -59,8 +60,9 @@ const displayTemples = (temples) => {
 /* async getTemples Function using fetch()*/
 async function getTemples() {
     const response = await fetch("https://byui-cse.github.io/cse121b-ww-course/resources/temples.json");
-    templeList = await response.json();
-    displayTemples(templeList);
+    let data = await response.json();
+    templeList = data.results;
+    sortBy();
 }
 /* FROM SELF, FIRST ATTEMPT
 const getTemples = async () => { */
@@ -91,24 +93,21 @@ function reset() {
 };
 
 /* sortBy Function */
-function sortBy(templeList) {
+function sortBy() {
     reset();
     const filter = document.querySelector("#sortBy").value;
     switch(filter) {
         case "utah":
-            displayTemples(templeList.filter((temple) => {
-                return temple.location.includes("Utah");
-            }));
+            displayTemples(templeList.filter((temple) => temple.location.includes("Utah")
+            ));
             break;
         case "notutah":
-            displayTemples(templeList.filter((temple) => {
-                return !temple.location.includes("Utah");
-            }));
+            displayTemples(templeList.filter((temple) => !temple.location.includes("Utah")
+            ));
             break;
         case "older":
-            displayTemples(templeList.filter((temple) => {
-                return temple.dedicated < new Date(1950, 0, 1);
-            }));
+            displayTemples(templeList.filter((temple) => temple.dedicated < new Date(1950, 0, 1)
+            ));
             break;
         case "all":
             displayTemples(templeList);
@@ -142,4 +141,4 @@ function compare(temple1, temple2) {
 getTemples();
 
 /* Event Listener */
-document.querySelector("#sortBy").addEventListener("change", sortBy());
+document.querySelector("#sortBy").addEventListener("change", sortBy);
